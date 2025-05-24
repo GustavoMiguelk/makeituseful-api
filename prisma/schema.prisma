@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  customer
+  corporation
+}
+
+enum Status {
+  PENDING
+  ACCEPTED
+  COLLECTED
+}
+
+enum ProductStatus {
+  OPEN
+  SELECTED
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  adress   String
+
+  role    UserRole  @default(customer)
+  Produto Produto[]
+
+  @@map("users")
+}
+
+model Empresas {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  cnpj     String
+
+  role   UserRole @default(corporation)
+  Coleta Coleta[]
+
+  @@map("corporations")
+}
+
+model Produto {
+  id         String        @id @default(uuid())
+  name       String
+  weight     Float
+  userAdress String        @map("user_adress")
+  idUsuario  String        @map("user_id")
+  status     ProductStatus @default(OPEN)
+  createdAt  DateTime      @default(now()) @map("created_at")
+  updatedAt  DateTime      @updatedAt @map("updated_at")
+
+  usuario User @relation(fields: [idUsuario], references: [id])
+
+  Coleta Coleta[]
+
+  @@map("products")
+}
+
+model Coleta {
+  id           String   @id @default(uuid())
+  collectedAt  DateTime @default(now()) @map("collected_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  status       Status   @default(ACCEPTED)
+  productId    String   @map("product_id")
+  enterpriseId String   @map("enterprise_id")
+  adress       String
+
+  produto Produto  @relation(fields: [productId], references: [id])
+  empresa Empresas @relation(fields: [enterpriseId], references: [id])
+
+  @@map("collect")
+}
