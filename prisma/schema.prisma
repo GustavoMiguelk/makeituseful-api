@@ -33,6 +33,7 @@ model User {
 
   role    UserRole  @default(customer)
   Produto Produto[]
+  Coleta  Coleta[]
 
   @@map("users")
 }
@@ -74,8 +75,10 @@ model Coleta {
   status       Status   @default(ACCEPTED)
   productId    String   @map("product_id")
   enterpriseId String   @map("enterprise_id")
+  userId       String   @map("user_id")
   adress       String
 
+  user    User     @relation(fields: [userId], references: [id])
   produto Produto  @relation(fields: [productId], references: [id])
   empresa Empresas @relation(fields: [enterpriseId], references: [id])
 

@@ -12,14 +12,25 @@ export class SessionsController {
     async create(request:Request, response: Response,):Promise<any>{
         const bodySchema = z.object({
             email: z.string().email(),
-            password: z.string()
+            password: z.string(),
+            role: z.string()
         })
 
-        const { email, password } = bodySchema.parse(request.body)
+        let user: any
 
-        const user = await prisma.user.findFirst({
-            where: { email }
-        })
+        const { email, password, role } = bodySchema.parse(request.body)
+
+        if(role === "enterprise"){
+            user = await prisma.empresas.findFirst({
+                where: { email }
+            })
+        }
+
+        if(role === "customer"){
+            user = await prisma.user.findFirst({
+                where: { email }
+            })    
+        }
 
         if(!user){
             throw new AppError("Invalid Email or Password!", 401)

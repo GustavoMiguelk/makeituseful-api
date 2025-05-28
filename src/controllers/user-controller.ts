@@ -36,4 +36,12 @@ export class UserController{
 
         return response.status(201).json({ userWithoutPassword })
     }
+
+    async index(request: Request, response: Response):Promise<any>{
+        const userCollect = await prisma.coleta.findMany({
+            where: { id: request.user?.id }
+        })
+
+        response.json({ userCollect })
+    }
 }
