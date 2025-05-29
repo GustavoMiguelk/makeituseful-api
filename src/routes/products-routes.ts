@@ -6,7 +6,5 @@ export const productsRoutes = Router()
 
 const productsController = new ProductsController()
 
-productsRoutes.use(verifyUserAuth(["admin", "customer"]))
-
 productsRoutes.post("/", productsController.create)
 productsRoutes.get("/", productsController.index)

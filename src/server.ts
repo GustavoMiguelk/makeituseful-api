@@ -1,7 +1,6 @@
 import express from "express";
 import "express-async-errors"
 import { errorHandling } from "./middlewares/error-handling";
-import { AppError } from "./utils/AppError";
 import { routes } from "./routes";
 
 const PORT = 3333

@@ -11,13 +11,7 @@ export const routes = Router()
 
 routes.use("/users", userRoutes)
 routes.use("/login", sessionsRoutes)
-routes.use("/products", ensureAuth, productsRoutes)
+routes.use("/products", productsRoutes)
 routes.use("/enterprises", enterpriseRoutes)
-
-routes.use(
-    "/collects", 
-    ensureAuth,
-    verifyUserAuth(["corporation"]),
-    collectRoutes
-)
+routes.use("/collects", collectRoutes)
 
