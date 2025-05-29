@@ -42,6 +42,23 @@ npm run dev
 ```
 
 ## 🪧 Rotas da API ##
+Para utilizar a API de maneira simples:
+- Instalando o [Insomnia](https://insomnia.rest/download)
+- Em seguida faça a importação do arquivo insomnia.yaml
+
+## Roteiro de Utilização ##
+### 👤 Usuário ###
+- Crie sua conta utilizando as rotas de usuário.
+- Efetue o Login
+- Cadastre um item para coleta por meio das rotas de produto.
+
+### 🏢 Empresa ###
+- Crie sua conta utilizando as rotas de empresa.
+- Efetue o Login
+- Visualize os produtos disponíveis para coleta e selecione os desejados.
+- Atualize o status das solicitações de coleta conforme o andamento do processo.
+
+
 
 
 
